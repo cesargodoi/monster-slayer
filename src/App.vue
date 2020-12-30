@@ -23,18 +23,20 @@
       @quit="quitGame"
       :round="currentRound"
     ></game-controls>
+    <fight-log v-if="winner !== 'quit'" :fightLog="log"></fight-log>
   </div>
 </template>
 
 <script>
 import GameControls from "./components/GameControls.vue";
+import FightLog from "./components/FightLog.vue";
 
 function getRandomValue(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
 export default {
-  components: { GameControls },
+  components: { GameControls, FightLog },
   data() {
     return {
       monsterHealth: 100,
@@ -72,12 +74,14 @@ export default {
       this.currentRound++;
       let value = getRandomValue(5, 10);
       this.monsterHealth -= value;
+      this.addLog("player", "attack", value);
       setTimeout(this.attackPlayer, 500);
     },
     specialMonster() {
       this.currentRound++;
       let value = getRandomValue(10, 20);
       this.monsterHealth -= value;
+      this.addLog("player", "attack", value);
       setTimeout(this.attackPlayer, 500);
     },
     healPlayer() {
@@ -88,14 +92,23 @@ export default {
       } else {
         this.playerHealth += value;
       }
+      this.addLog("player", "heal", value);
       setTimeout(this.attackPlayer, 500);
     },
     attackPlayer() {
       let value = getRandomValue(8, 12);
       this.playerHealth -= value;
+      this.addLog("monster", "attack", value);
     },
     quitGame() {
       this.winner = "quit";
+    },
+    addLog(who, what, value) {
+      this.log.unshift({
+        who: who,
+        what: what,
+        value: value,
+      });
     },
   },
 };
