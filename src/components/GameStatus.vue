@@ -4,13 +4,20 @@
       YOU WON!
     </p>
     <p class="display-3 fw-bold text-danger" v-else-if="whoWon === 'monster'">
-      YOU LOST
+      YOU LOOSE
+    </p>
+    <p class="display-3 fw-bold text-red" v-else-if="whoWon === 'quit'">
+      GAME OVER
     </p>
     <p class="display-3 fw-bold text-info" v-else>
       ITS A DRAW
     </p>
-    <button type="button" class="btn btn-outline-danger fw-bold">
-      PLAY AGAIN?
+    <button
+      type="button"
+      class="btn btn-outline-primary fw-bold"
+      @click="start"
+    >
+      START GAME
     </button>
   </div>
 </template>
@@ -18,6 +25,12 @@
 <script>
 export default {
   props: ["whoWon"],
+  emits: ["start"],
+  methods: {
+    start() {
+      this.$emit("start");
+    },
+  },
 };
 </script>
 
