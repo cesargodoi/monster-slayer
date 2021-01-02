@@ -1,36 +1,29 @@
 <template>
-  <div class="alert bg-status text-center mt-3 mb-3">
-    <button
-      type="button"
-      class="btn btn-outline-primary fw-bold"
-      @click="attack"
-    >
-      ATTACK
-    </button>
-    <button
-      type="button"
-      class="btn btn-outline-info fw-bold"
+  <div class="alert text-center mt-3 mb-3">
+    <action-button action="attack" @click="attack"></action-button>
+    <action-button
+      action="special"
       @click="special"
-      :disabled="enableSpecial"
-    >
-      SPECIAL
-    </button>
-    <button
-      type="button"
-      class="btn btn-outline-success fw-bold"
+      v-if="round % 3 === 0"
+    ></action-button>
+    <action-button
+      action="heal"
       @click="heal"
-      :disabled="enableSpecial"
-    >
-      HEAL
-    </button>
-    <button type="button" class="btn btn-outline-danger fw-bold" @click="quit">
-      QUIT
-    </button>
+      v-if="round % 3 === 0"
+    ></action-button>
+    <action-button action="quit" @click="quit"></action-button>
   </div>
 </template>
 
 <script>
+import ActionButton from "./ActionButton.vue";
+
+function getRandomValue(min = 8, max = 12) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 export default {
+  components: { ActionButton },
   props: ["round"],
   computed: {
     enableSpecial() {
@@ -40,13 +33,13 @@ export default {
   methods: {
     emits: ["attack", "special", "heal", "quit"],
     attack() {
-      this.$emit("attack");
+      this.$emit("attack", getRandomValue(5, 10), getRandomValue());
     },
     special() {
-      this.$emit("special");
+      this.$emit("special", getRandomValue(10, 20), getRandomValue());
     },
     heal() {
-      this.$emit("heal");
+      this.$emit("heal", getRandomValue(12, 25), getRandomValue());
     },
     quit() {
       this.$emit("quit");

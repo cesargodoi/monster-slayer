@@ -6,15 +6,13 @@
     <p class="display-3 fw-bold text-danger" v-else-if="whoWon === 'monster'">
       YOU LOOSE
     </p>
-    <p class="display-3 fw-bold text-red" v-else-if="whoWon === 'quit'">
-      GAME OVER
-    </p>
+    <span v-else-if="whoWon === 'quit'"></span>
     <p class="display-3 fw-bold text-info" v-else>
       ITS A DRAW
     </p>
     <button
       type="button"
-      class="btn btn-outline-primary fw-bold"
+      class="btn btn-outline-primary btn-lg fw-bold mb-2"
       @click="start"
     >
       START GAME

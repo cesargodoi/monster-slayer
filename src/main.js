@@ -1,8 +1,8 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 
-import FightStatus from "./components/FightStatus.vue";
-import GameStatus from "./components/GameStatus.vue";
+import FightStatus from "./components/FightStatus";
+import GameStatus from "./components/GameStatus";
 
 const app = createApp(App);
 

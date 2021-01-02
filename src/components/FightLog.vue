@@ -13,11 +13,7 @@
         </td>
 
         <td class="text-uppercase">
-          {{
-            item.what === "attack"
-              ? "attacked and took"
-              : "took the potion and got"
-          }}
+          {{ item.what === "attack" ? "attacked and took" : "took the potion" }}
         </td>
 
         <td
